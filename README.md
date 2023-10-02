@@ -38,9 +38,9 @@ Like nothing is perfect, every piece of code is more or less likely to have some
 
 Note: This step is probably the most important one! Bad TDS = bugs in production
 
-1. Now that you are finished with making the best possible TDS it's time to write some **Unit Tests**! If your TDS is detailed enough it should be easy for you to cover the code with Unit Test in order to make sure there are no bugs in this game. One example of one Unit Test can be found in class _TestPlayer.java_ in the package _test_ (it tests method _takeDamage_ from class _Player_). - - OPTIONAL?
+2. Now that you are finished with making the best possible TDS it's time to write some **Unit Tests**! If your TDS is detailed enough it should be easy for you to cover the code with Unit Test in order to make sure there are no bugs in this game. One example of one Unit Test can be found in class _TestPlayer.java_ in the package _test_ (it tests method _takeDamage_ from class _Player_).
 
-1. Now that you covered your code with Unit Test some might have failed. Oh well, as we expected our code has some bugs. Give your best and find all the bugs and fix them! Write down each bug you found in Bugs document and describe each bug - what is the bug and how you fixed it.
+3. Now that you covered your code with Unit Test some might have failed. Oh well, as we expected our code has some bugs. Give your best and find all the bugs and fix them! Write down each bug you found in Bugs document and describe each bug - what is the bug and how you fixed it.
 
 Note: Be aware! Not all bugs can be detected with Unit Tests.
 
