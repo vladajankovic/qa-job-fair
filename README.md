@@ -34,13 +34,13 @@ Like nothing is perfect, every piece of code is more or less likely to have some
 
 ## **TASK DESCRIPTION**
 
-1. Write thorough TDS for this card game. What is TDS? **Test Design Specification** (TDS) is a document that outlines the detailed design of test cases and testing procedures. This document typically describes the specific inputs, expected outputs, and steps for executing tests. It helps ensure that testing is systematic and thorough. Examples: _Player takes damage by 6 -\> Player's health decreases by 6. Player draws a card -\> Number of cards in deck decreases._ Be sure to cover all edge cases and all possible scenarios! Also, if there are some open questions you have, write them down and make reasonable assumptions.
+1. Write thorough TDS for this card game. What is TDS? **Test Design Specification** (TDS) is a document that outlines the detailed design of test cases and testing procedures. This document typically describes the specific inputs, expected outputs, and steps for executing tests. It helps ensure that testing is systematic and thorough. Examples: _Player takes damage by 6 -\> Player's health decreases by 6. Player draws a card -\> Number of cards in deck decreases._ Be sure to cover all edge cases and all possible scenarios! Also, if there are some open questions you have, write them down and make reasonable assumptions. Write tast cases in provided TDS document.
 
 Note: This step is probably the most important one! Bad TDS = bugs in production
 
 1. Now that you are finished with making the best possible TDS it's time to write some **Unit Tests**! If your TDS is detailed enough it should be easy for you to cover the code with Unit Test in order to make sure there are no bugs in this game. One example of one Unit Test can be found in class _TestPlayer.java_ in the package _test_ (it tests method _takeDamage_ from class _Player_). - - OPTIONAL?
 
-1. Now that you covered your code with Unit Test some might have failed. Oh well, as we expected our code has some bugs. Give your best and find all the bugs and fix them!
+1. Now that you covered your code with Unit Test some might have failed. Oh well, as we expected our code has some bugs. Give your best and find all the bugs and fix them! Write down each bug you found in Bugs document and describe each bug - what is the bug and how you fixed it.
 
 Note: Be aware! Not all bugs can be detected with Unit Tests.
 
