@@ -54,7 +54,7 @@ Note: Be aware! Not all bugs can be detected with Unit Tests.
 
 #### **Submission format**
 
-You should send your answers to this email [lukav@nordeus.com](mailto:lukav@nordeus.com) (email subject: QA Internship task) with a link to the forked Github project and attached file or link to the file where you wrote your TDS (Google Sheets, Google Docs, Word, Excel, Miro…).
+You should send your answers to this email [lukav@nordeus.com](mailto:lukav@nordeus.com) (email subject: QA Internship task) with a link to the forked Github project with attached TDS and Bugs files.
 
 _The future of our card game kingdom rests in your hands. Are you up for the challenge? Let's embark on this epic quest together and make testing and debugging a heroic endeavor!_
 
