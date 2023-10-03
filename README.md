@@ -1,4 +1,4 @@
-# QA puzzle /prototype/
+# QA puzzle
 
 Hey there, future QA superheroes! Are you ready to dive into the exciting world of testing, debugging and many more? Get ready to flex those testing muscles and put your bug-busting skills to the test, because we've got a thrilling task lined up for you.
 
