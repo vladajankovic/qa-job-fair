@@ -8,9 +8,9 @@ Get your strategy hat on and prepare for an exhilarating battle of wits and card
 
 **Player Duels:** It's a two-player showdown! Each player starts with 20 points of health. Your mission? Outsmart your opponent and reduce their health to 0!
 
-**Starting Hand:** Both players are dealt 6 cards at the beginning of the game.
-
 **Deck Power:** Each player gets its own deck of 25 cards.
+
+**Starting Hand:** Both players draw 6 cards from deck at the beginning of the game.
 
 **Draw Power:** On the start of the player's turn the player draws 1 card from the deck.
 
@@ -26,7 +26,7 @@ Get your strategy hat on and prepare for an exhilarating battle of wits and card
 2. _**Boost Attack Card (index 2) :**_ _When played it adds 3 additional attack damage during turn in which is played (this is only boost for Attack Card, player can not attack with this)_
 3. _**Attack Card (index 3-7) :**_ _Attacks a player's opponent by the amount of damage equal to the index of the card._ _ **Special ability of Attack Card :** _ _If a player is attacked by the amount of damage that is equal to one of its own Attack Cards, player can play one of those cards at the beginning of its turn to dodge the bullet and keep its health intact._
 
-Fork Card Game Project Repository to your GitHub (use any IDE of your choice - we used Visual Studio Code)
+Fork Card Game Project Repository to your GitHub
 
 ## What do we want from you to do?
 
@@ -44,7 +44,7 @@ Like nothing is perfect, every piece of code is more or less likely to have some
 
 Note: Be aware! Not all bugs can be detected with Unit Tests.
 
-**Pro Tip** : Sometimes original methods and functionalities are too time demanding while testing and searching for bugs. So, you can write some fake methods (we call them _test commands_) in order to make your testing go faster! If you decide to use them make sure to leave them in code so we can see all the great test commands you came up with (you can find some examples in code) 😀
+**Pro Tip** : Sometimes original methods and functionalities are too time demanding while testing and searching for bugs. So, you can write some fake methods (we call them _test commands_) in order to make your testing go faster! If you decide to use them make sure to leave them in code (start the name of that function with prefix _testCommand_) so we can see all the great test commands you came up with 😀
 
 ## **SETUP**
 
