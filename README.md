@@ -18,7 +18,7 @@ Get your strategy hat on and prepare for an exhilarating battle of wits and card
 
 **Farewell, Card:** Every card vanishes from the player's hand after it's used.
 
-**Victory or Defeat:** There are only two ways this game can end. Either one player's health goes to 0, or someone finds themselves with no cards left to play (no cards in both deck and hand).
+**Victory or Defeat:** There are only two ways this game can end. Either one player loses all its health points, or someone finds themselves with no cards left to play (no cards in both deck and hand).
 
 **Types of cards in this game:**
 
