@@ -15,22 +15,19 @@ import java.util.List;
 
 public class TestPlayer {
 
-    public static List<Card> generateCards() {
+    public static List<Card> generateCardsTest() {
     List<Card> cards = new ArrayList<>();
 
-    // Generate AttackCards (from 3 to 7)
     for (int i = 3; i <= 7; i++) {
         cards.add(new AttackCard(i));
         cards.add(new AttackCard(i));
     }
 
-    // Generate 10 ProtectCards
     for (int i = 0; i < 10; i++) {
-        cards.add(new ProtectCard()); // Using a higher ID range to distinguish from AttackCards
+        cards.add(new ProtectCard());
     }
-    // Generate 10 BoostAttackCards
     for (int i = 0; i < 10; i++) {
-        cards.add(new BoostAttackCard()); // Using a higher ID range to distinguish from other cards
+        cards.add(new BoostAttackCard());
     }
 
     return cards;
@@ -38,7 +35,7 @@ public class TestPlayer {
 
 @Test
 public void testTakeDamage(){
-    Player player = new Player(10, generateCards());
+    Player player = new Player(10, generateCardsTest());
     player.takeDamage(1);
     assertEquals(9, player.getHealth());
 }
