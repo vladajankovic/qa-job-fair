@@ -141,7 +141,7 @@ public class Game {
             }
             if (decision.equalsIgnoreCase(Integer.toString(opponentPlayer.getDamage()))) {
                 //player doesn't take damage this turn - uses special ability of attacking card
-                currentPlayer.playCard(Integer.parseInt(decision));
+                currentPlayer.playCardInDefense(Integer.parseInt(decision));
             }
     }
 

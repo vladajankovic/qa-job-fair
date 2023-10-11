@@ -109,6 +109,7 @@ public class Player {
                 damage += cardToPlay.getNumber();
             }
             if(cardToPlay instanceof BoostAttackCard){
+                attackingStatus = true;
                 damage += ((BoostAttackCard)cardToPlay).getBoost();
             }
         
@@ -126,6 +127,7 @@ public class Player {
 
         if(cardToPlay != null){
             lastPlayedCard = cardToPlay;
+            attackingStatus = true;
 
             System.out.println(String.format("You've defended yourself! You've been attacked for %d damage and you've used special ability of Attacking card %d to deflect the attack\r\n", cardNumber, cardNumber));
         }
