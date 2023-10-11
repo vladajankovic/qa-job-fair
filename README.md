@@ -24,7 +24,7 @@ Get your strategy hat on and prepare for an exhilarating battle of wits and card
 
 1. _**Protect Card (index 1) :**_ _When a player is under attack, the player can use this card at the beginning of its turn to dodge the bullet and keep its health intact._
 2. _**Boost Attack Card (index 2) :**_ _When played it adds 3 additional attack damage during turn in which is played (this is only boost for Attack Card, player can not attack with this)_
-3. _**Attack Card (index 3-7) :**_ _Attacks a player's opponent by the amount of damage equal to the index of the card._ _ **Special ability of Attack Card :** _ _If a player is attacked by the amount of damage that is equal to one of its own Attack Cards, player can play one of those cards at the beginning of its turn to dodge the bullet and keep its health intact._
+3. _**Attack Card (index 3-7) :**_ _Attacks a player's opponent by the amount of damage equal to the index of the card._  **Special ability of Attack Card :**  _If a player is attacked by the amount of damage that is equal to one of its own Attack Cards, player can play one of those cards at the beginning of its turn to dodge the bullet and keep its health intact (Note: After using special ability of attack card player gets to play his own turn. Opponent can not be attacked with the same card which special ability is used for deflecting the attack)._
 
 Fork Card Game Project Repository to your GitHub
 
