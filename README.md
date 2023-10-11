@@ -49,7 +49,7 @@ Note: Be aware! Not all bugs can be detected with Unit Tests.
 ## **SETUP**
 
 - [Install Java 17](https://www.oracle.com/java/technologies/downloads/)
-- [Fork Repository to your GitHub](https://github.com/LukaVuksic/qa-job-fair)
+- [Fork Repository to your GitHub](https://github.com/LukaVuksic/qa-job-fair) ([How to fork a repo?](https://docs.github.com/en/get-started/quickstart/fork-a-repo))
 - [Download IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (If you want you can use IDE of your choice (Visual Studio Code for example))
 
 #### **Submission format**
