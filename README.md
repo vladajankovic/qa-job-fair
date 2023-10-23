@@ -6,7 +6,7 @@ Hey there, future QA superheroes! Are you ready to dive into the exciting world 
 
 Get your strategy hat on and prepare for an exhilarating battle of wits and cards. Here's guide to navigating this exciting game:
 
-**Player Duels:** It's a two-player showdown! Each player starts with 20 points of health. Your mission? Outsmart your opponent and reduce their health to 0!
+**Player Duels:** It's a two-player showdown! Each player starts with 20 points of health. Your mission? Outsmart your opponent and make him lose all his health!
 
 **Deck Power:** Each player gets its own deck of 25 cards.
 
@@ -18,11 +18,11 @@ Get your strategy hat on and prepare for an exhilarating battle of wits and card
 
 **Farewell, Card:** Every card vanishes from the player's hand after it's used.
 
-**Victory or Defeat:** There are only two ways this game can end. Either one player loses all its health points, or someone finds themselves with no cards left to play (no cards in both deck and hand).
+**Victory or Defeat:** There are only two ways this game can end. Either one player loses all its health points, or someone finds themselves with no cards left to play which makes him lose the game(no cards in both deck and hand).
 
 **Types of cards in this game:**
 
-1. _**Protect Card (index 1) :**_ _When a player is under attack, the player can use this card at the beginning of its turn to dodge the bullet and keep its health intact._
+1. _**Protect Card (index 1) :**_ _When a player is under attack, the player can use this card at the beginning of its turn to dodge the bullet and keep its health intact. This card can be played at any time during the turn, but its effect will only be activated when the player is attacked._
 2. _**Boost Attack Card (index 2) :**_ _When played it adds 3 additional attack damage during turn in which is played (this is only boost for Attack Card, player can not attack with this)_
 3. _**Attack Card (index 3-7) :**_ _Attacks a player's opponent by the amount of damage equal to the index of the card._  **Special ability of Attack Card :**  _If a player is attacked by the amount of damage that is equal to one of its own Attack Cards, player can play one of those cards at the beginning of its turn to dodge the bullet and keep its health intact (Note: After using special ability of attack card player gets to play his own turn. Opponent can not be attacked with the same card which special ability is used for deflecting the attack)._
 
@@ -34,13 +34,13 @@ Like nothing is perfect, every piece of code is more or less likely to have some
 
 ## **TASK DESCRIPTION**
 
-1. Write thorough TDS for this card game. What is TDS? **Test Design Specification** (TDS) is a document that outlines the detailed design of test cases and testing procedures. This document typically describes the specific inputs, expected outputs, and steps for executing tests. It helps ensure that testing is systematic and thorough. Examples: _Player takes damage by 6 -\> Player's health decreases by 6. Player draws a card -\> Number of cards in deck decreases._ Be sure to cover all edge cases and all possible scenarios! Also, if there are some open questions you have, write them down and make reasonable assumptions. Write tast cases in provided TDS document.
+1. Write thorough TDS for this card game. What is TDS? **Test Design Specification** (TDS) is a document that outlines the detailed design of test cases and testing procedures. This document typically describes the specific inputs, expected outputs, and steps for executing tests. It helps ensure that testing is systematic and thorough. Examples: _Player takes damage by 6 -\> Player's health decreases by 6. Player draws a card -\> Number of cards in deck decreases._ Be sure to cover all edge cases and all possible scenarios! Also, if there are some open questions you have, write them down and make reasonable assumptions. Write test cases in provided TDS document.
 
   Note: This step is probably the most important one! Bad TDS = bugs in production
 
-2. Now that you are finished with making the best possible TDS it's time to write some **Unit Tests**! If your TDS is detailed enough it should be easy for you to cover the code with Unit Test in order to make sure there are no bugs in this game. One example of one Unit Test can be found in class _TestPlayer.java_ in the package _test_ (it tests method _takeDamage_ from class _Player_).
+2. Now that you are finished with making the best possible TDS it's time to write some **Unit Tests**! If your TDS is detailed enough it should be easy for you to cover the code with Unit Test in order to make sure there are no bugs in this game. Make sure to cover _Player.java_ and classes in _cards_ package with Unit Tests (if you have time you can then cover _Game.java_ class with Unit Test as well). One example of one Unit Test can be found in class _TestPlayer.java_ in the package _test_ (it tests method _takeDamage_ from class _Player_).
 
-3. Now that you covered your code with Unit Test some might have failed. Oh well, as we expected our code has some bugs. Give your best and find all the bugs and fix them! Write down each bug you found in Bugs document and describe each bug - what is the bug and how you fixed it.
+3. Now that you covered your code with Unit Test some might have failed. Oh well, as we expected, our code has some bugs. Give your best and find all the bugs and fix them! Write down each bug you found in Bugs document and describe each bug - what is the bug and how you fixed it.
 
 Note: Be aware! Not all bugs can be detected with Unit Tests.
 
