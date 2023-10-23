@@ -40,7 +40,7 @@ public class Game {
 
         // Game loop
         while (!getGameEnded()) {
-            // Player 1's turndi
+            // Player 1's turn
             System.out.println("Player 1's Turn");
             if(isPlayerWithoutOptionsToPlay(player1)){
                 System.out.println("You lost all your cards... \r\n Player 2 wins!");
