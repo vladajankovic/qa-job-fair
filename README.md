@@ -45,17 +45,3 @@ Like nothing is perfect, every piece of code is more or less likely to have some
 Note: Be aware! Not all bugs can be detected with Unit Tests.
 
 **Pro Tip** : Sometimes original methods and functionalities are too time demanding while testing and searching for bugs. So, you can write some fake methods (we call them _test commands_) in order to make your testing go faster! If you decide to use them make sure to leave them in code (start the name of that function with prefix _testCommand_) so we can see all the great test commands you came up with 😀
-
-## **SETUP**
-
-- [Install Java 17](https://www.oracle.com/java/technologies/downloads/)
-- [Fork Repository to your GitHub](https://github.com/LukaVuksic/qa-job-fair) ([How to fork a repo?](https://docs.github.com/en/get-started/quickstart/fork-a-repo))
-- [Download IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (If you want you can use IDE of your choice (Visual Studio Code for example))
-
-#### **Submission format**
-
-You should send your answers to this email [lukav@nordeus.com](mailto:lukav@nordeus.com) (email subject: QA Internship task) with a link to the forked Github project with attached TDS and Bugs files.
-
-_The future of our card game kingdom rests in your hands. Are you up for the challenge? Let's embark on this epic quest together and make testing and debugging a heroic endeavor!_
-
-_Adventure awaits – let's play, test, and conquer together!_
