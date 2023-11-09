@@ -2,6 +2,7 @@ package test;
 
 import org.junit.Test;
 
+import cards.AttackCard;
 import cards.BoostAttackCard;
 import cards.Card;
 import cards.ProtectCard;
@@ -19,7 +20,7 @@ public class TestCardClasses {
 		Card protectCardTest = new ProtectCard();
 		assertNotNull("ProtectCard: Constructor returned null!", protectCardTest);
 	}
-	
+
 	@Test
 	public void testProtectCardIndex()
 	{
@@ -146,5 +147,68 @@ public class TestCardClasses {
 				((BoostAttackCard)boostAttackCard2).getBoost());
 		
 	}
+
+	@Test
+	public void testAttackCardConstructor()
+	{
+		Card testAttackCard = new AttackCard(0);
+		assertNotNull("AttackCard: Constructor returned null!", testAttackCard);
+	}
 	
+	@Test
+	public void testAttackCardConstructorIndex()
+	{
+		for(int i = -100; i <= 100; i++)
+		{
+			Card testAttackCard = new AttackCard(i);
+			assertNotNull("AttackCard: Constructor returned null!", testAttackCard);
+			assertEquals("AttackCard: Attack Card bad index!", i, testAttackCard.getNumber());
+		}
+	}
+
+	@Test
+	public void testAttackCardDescription()
+	{
+		Card testAttackCard = new AttackCard(0);
+		assertNotNull("AttackCard: Constructor returned null!", testAttackCard);
+		
+		String description = testAttackCard.description();
+		String testDescription = "Attack card";
+		
+		assertTrue("AttackCard: Description should be 'Attack card', but is '" + description + "'!", 
+				description.equals(testDescription));
+	}
+	
+	@Test
+	public void testThreeAttackCards()
+	{
+		Card attackCard1 = new AttackCard(0);
+		Card attackCard2 = new AttackCard(0);
+		Card attackCard3 = new AttackCard(1);
+		assertNotNull("AttackCard: Constructor returned null!", attackCard1);
+		assertNotNull("AttackCard: Constructor returned null!", attackCard2);
+		assertNotNull("AttackCard: Constructor returned null!", attackCard3);
+		assertNotEquals(attackCard1, attackCard2);
+		assertNotEquals(attackCard1, attackCard3);
+		assertNotEquals(attackCard2, attackCard3);
+		
+		assertEquals("AttackCard: Card indexes is not 0!", 
+				attackCard1.getNumber(), attackCard2.getNumber());
+		assertNotEquals("AttackCard: Card indexes are equals!", 
+				attackCard1.getNumber(), attackCard3.getNumber());
+		assertNotEquals("AttackCard: Card indexes are equals!", 
+				attackCard2.getNumber(), attackCard3.getNumber());
+		
+		String description1 = attackCard1.description();
+		String description2 = attackCard2.description();
+		String description3 = attackCard3.description();
+		
+		assertTrue("BoostAttackCard: Descriptions are different!", 
+				description1.equals(description2));
+		assertTrue("BoostAttackCard: Descriptions are different!", 
+				description2.equals(description3));
+		assertTrue("BoostAttackCard: Descriptions are different!", 
+				description1.equals(description3));
+	}
+
 }
