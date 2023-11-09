@@ -112,4 +112,39 @@ public class TestCardClasses {
 		assertEquals("BoostAttackCard: Card boost is not 3!", 3, boost);
 	}
 	
+	@Test
+	public void testTwoBoostAttackCards()
+	{
+		Card boostAttackCard1 = new BoostAttackCard();
+		Card boostAttackCard2 = new BoostAttackCard();
+		assertNotNull("BoostAttackCard: Constructor returned null!", boostAttackCard1);
+		assertNotNull("BoostAttackCard: Constructor returned null!", boostAttackCard2);
+		assertNotEquals(boostAttackCard1, boostAttackCard2);
+		
+		assertEquals("BoostAttackCard: Card indexes is not 2!", 2, boostAttackCard1.getNumber());
+		assertEquals("BoostAttackCard: Card indexes is not 2!", 2, boostAttackCard2.getNumber());
+		assertEquals("BoostAttackCard: Card indexes are different!", 
+				boostAttackCard1.getNumber(), boostAttackCard2.getNumber());
+		
+		String description1 = boostAttackCard1.description();
+		String description2 = boostAttackCard2.description();
+		String testDescription = "Boost card";
+		
+		assertTrue("BoostAttackCard: Description should be 'Boost card', but is '" + description1 + "'!", 
+				description1.equals(testDescription));
+		assertTrue("BoostAttackCard: Description should be 'Boost card', but is '" + description2 + "'!", 
+				description2.equals(testDescription));
+		assertTrue("BoostAttackCard: Descriptions are different!", 
+				description1.equals(description2));
+		
+		assertEquals("BoostAttackCard: Card boost is not 3!", 
+				3, ((BoostAttackCard)boostAttackCard1).getBoost());
+		assertEquals("BoostAttackCard: Card boost is not 3!", 
+				3, ((BoostAttackCard)boostAttackCard2).getBoost());
+		assertEquals("BoostAttackCard: Card boosts are different!", 
+				((BoostAttackCard)boostAttackCard1).getBoost(), 
+				((BoostAttackCard)boostAttackCard2).getBoost());
+		
+	}
+	
 }
