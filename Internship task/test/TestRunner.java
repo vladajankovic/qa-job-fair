@@ -7,15 +7,20 @@ import org.junit.runner.notification.Failure;
 public class TestRunner {
 
 	public static void main(String[] args) {
-		Result results = JUnitCore.runClasses(TestCardClasses.class);
+		Result results = JUnitCore.runClasses(
+				TestCardClasses.class,
+				TestUtility.class
+				);
 		
 		for(Failure fail: results.getFailures())
 		{
 			System.out.println(fail.toString());
 		}
 		
-		System.out.println(results.wasSuccessful());
-
+		if (results.wasSuccessful())
+		{
+			System.out.println("All tests passed!");
+		}
 	}
 
 }
