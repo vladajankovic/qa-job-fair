@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import cards.*;
-import utility.Utility;
 
 public class Player {
 
@@ -70,14 +69,14 @@ public class Player {
 	private void singleDeckShuffle()
 	{
 		int deckSize = this.deck.size();
-		List<Card> shuffledDeck = new ArrayList<Card>();
 		Random rand = new Random();
-		for(int i = 0; i < deckSize; i++)
+		for(int i = deckSize; i > 0; i--)
 		{
-			int randomIndex = rand.nextInt(Integer.MAX_VALUE) % (deckSize - i);
-			shuffledDeck.add(this.deck.remove(randomIndex));
+			int randomIndex = rand.nextInt(Integer.MAX_VALUE) % i;
+			Card temp = this.deck.get(i - 1);
+			this.deck.set(i - 1, this.deck.get(randomIndex));
+			this.deck.set(randomIndex, temp);
 		}
-		this.deck = shuffledDeck;
 	}
 
 	public void shuffleDeck() 
