@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import cards.*;
+import utility.Utility;
 
 public class Player {
 
@@ -13,12 +14,27 @@ public class Player {
 	private List<Card> deck;
 	private Card lastPlayedCard;
 	private static int initialNumberOfCards = 6;
+	private static int initialHealthValue = 20;
 	private boolean attackingStatus;
 	private int damage;
 
 	public Player(int health, List<Card> deck) {
-		this.health = health;
-		this.deck = deck;
+		if(health > 0)
+		{
+			this.health = health;
+		}
+		else 
+		{
+			this.health = initialHealthValue;
+		}
+		if (deck == null)
+		{
+			this.deck = Utility.generateCards();
+		}
+		else 
+		{
+			this.deck = deck;
+		}
 		this.hand = new ArrayList<>();
 		lastPlayedCard = null;
 		attackingStatus = false;
@@ -27,7 +43,17 @@ public class Player {
 	}
 
 	public void takeDamage(int amountOfDamage) {
-		health = amountOfDamage;
+		if (amountOfDamage > 0)
+		{
+			if(this.health > amountOfDamage)
+			{
+				this.health -= amountOfDamage;
+			}
+			else 
+			{
+				this.health = 0;
+			}
+		}
 	}
 
 	public boolean getAttackingStatus() {

@@ -29,8 +29,16 @@ public class TestPlayer {
 		{
 			Player testPlayer = new Player(i, null);
 			assertNotNull("Player: Constructor is null!", testPlayer);
-			assertEquals("Player: Bad return value of method getHealth()!", 
-					i, testPlayer.getHealth());
+			if (i < 1)
+			{
+				assertEquals("Player: Bad return value of method getHealth()!", 
+						20, testPlayer.getHealth());
+			}
+			else 
+			{
+				assertEquals("Player: Bad return value of method getHealth()!", 
+						i, testPlayer.getHealth());
+			}
 		}
 	}
 	
@@ -39,7 +47,7 @@ public class TestPlayer {
 	{
 		Player testPlayer = new Player(0, null);
 		assertNotNull("Player: Constructor is null!", testPlayer);
-		assertNull("Player: Bad return value of method getDeck()!", 
+		assertNotNull("Player: Attribute deck is null!", 
 				testPlayer.getDeck());
 	}
 	
@@ -48,7 +56,7 @@ public class TestPlayer {
 	{
 		Player testPlayer = new Player(0, Utility.generateCards());
 		assertNotNull("Player: Constructor is null!", testPlayer);
-		assertNotNull("Player: Bad return value of method getDeck()!", 
+		assertNotNull("Player: Attribute deck is null!", 
 				testPlayer.getDeck());
 		assertEquals("Player: Initial deck size is not 25!", 
 				25, testPlayer.getDeck().size());
@@ -113,11 +121,43 @@ public class TestPlayer {
 	}
 	
 	@Test
-	public void testTakeDamage(){
-	    new Utility();
+	public void testTakeDamage1()
+	{
 	    Player player = new Player(10, Utility.generateCards());
 	    player.takeDamage(1);
-	    assertEquals(9, player.getHealth());
+	    assertEquals("Player: Bad 'take damage' calculation!", 
+	    		9, player.getHealth());
+	}
+	
+	@Test
+	public void testTakeDamage2()
+	{
+	    Player player = new Player(10, Utility.generateCards());
+	    player.takeDamage(10);
+	    assertEquals("Player: Bad 'take damage' calculation!", 
+	    		0, player.getHealth());
+	}
+	
+	@Test
+	public void testTakeDamage3()
+	{
+	    Player player = new Player(-1, Utility.generateCards());
+	    assertEquals("Player: Bad health!", 
+	    		20, player.getHealth());
+	    player.takeDamage(1);
+	    assertEquals("Player: Bad 'take damage' calculation!", 
+	    		19, player.getHealth());
+	}
+	
+	@Test
+	public void testTakeDamage4()
+	{
+	    Player player = new Player(-10, Utility.generateCards());
+	    assertEquals("Player: Bad health value!", 
+	    		20, player.getHealth());
+	    player.takeDamage(-300);
+	    assertEquals("Player: Bad 'take damage' calculation!", 
+	    		20, player.getHealth());
 	}
     
 }
