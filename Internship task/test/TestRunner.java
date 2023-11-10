@@ -9,7 +9,8 @@ public class TestRunner {
 	public static void main(String[] args) {
 		Result results = JUnitCore.runClasses(
 				TestCardClasses.class,
-				TestUtility.class
+				TestUtility.class,
+				TestPlayer.class
 				);
 		
 		for(Failure fail: results.getFailures())
