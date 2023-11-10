@@ -45,13 +45,13 @@ public class Player {
 	public void takeDamage(int amountOfDamage) {
 		if (amountOfDamage > 0)
 		{
-			if(this.health > amountOfDamage)
+			if(health > amountOfDamage)
 			{
-				this.health -= amountOfDamage;
+				health -= amountOfDamage;
 			}
 			else 
 			{
-				this.health = 0;
+				health = 0;
 			}
 		}
 	}
@@ -69,7 +69,7 @@ public class Player {
 	}
 
 	public void resetDamage() {
-		damage = damage;
+		damage = 0;
 	}
 
 	public int getHealth() {
@@ -94,14 +94,14 @@ public class Player {
 	
 	private void singleDeckShuffle()
 	{
-		int deckSize = this.deck.size();
+		int deckSize = deck.size();
 		Random rand = new Random();
 		for(int i = deckSize; i > 0; i--)
 		{
 			int randomIndex = rand.nextInt(Integer.MAX_VALUE) % i;
-			Card temp = this.deck.get(i - 1);
-			this.deck.set(i - 1, this.deck.get(randomIndex));
-			this.deck.set(randomIndex, temp);
+			Card temp = deck.get(i - 1);
+			deck.set(i - 1, deck.get(randomIndex));
+			deck.set(randomIndex, temp);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class Player {
 	{
 		for(int i = 0; i < 3; i++)
 		{
-			this.singleDeckShuffle();
+			singleDeckShuffle();
 		}
 	}
 
@@ -126,8 +126,11 @@ public class Player {
 	}
 
 	public void drawCard() {
-		Card drawnCard = deck.remove(deck.size() - 1);
-		hand.add(drawnCard);
+		if(!deck.isEmpty())
+		{
+			Card drawnCard = deck.remove(deck.size() - 1);
+			hand.add(drawnCard);
+		}
 	}
 
 	public void drawInitialCards() {
@@ -144,6 +147,14 @@ public class Player {
 				break;
 			}
 		}
+		
+		if (cardToPlay == null)
+		{
+			System.out.println("No card in hand with the index '"+cardNumber+"'.\n"
+					+ "Choose another card!\n");
+			return;
+		}
+		
 		hand.remove(cardToPlay);
 		cardToPlay.effect();
 
@@ -154,7 +165,6 @@ public class Player {
 			damage += cardToPlay.getNumber();
 		}
 		if (cardToPlay instanceof BoostAttackCard) {
-			attackingStatus = true;
 			damage += ((BoostAttackCard) cardToPlay).getBoost();
 		}
 

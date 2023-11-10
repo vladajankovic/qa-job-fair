@@ -2,7 +2,10 @@ package test;
 
 import org.junit.Test;
 
+import cards.AttackCard;
+import cards.BoostAttackCard;
 import cards.Card;
+import cards.ProtectCard;
 import player.Player;
 import utility.Utility;
 import static org.junit.Assert.assertEquals;
@@ -10,7 +13,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestPlayer {
@@ -158,6 +164,279 @@ public class TestPlayer {
 	    player.takeDamage(-300);
 	    assertEquals("Player: Bad 'take damage' calculation!", 
 	    		20, player.getHealth());
+	}
+	
+	@Test
+	public void testAttackStatusAttackCard()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new AttackCard(7));
+		Player player = new Player(10, deck);
+		assertFalse("Player: Initial attacking status must be false!", 
+				player.getAttackingStatus());
+		
+		player.drawCard();
+		player.playCard(7);
+		assertTrue("Player: Attacking status must be true, when Attack Card is played!", 
+				player.getAttackingStatus());
+		player.resetAttackingStatus();
+		assertFalse("Player: Attacking status after reset must be false!", 
+				player.getAttackingStatus());
+	}
+	
+	@Test
+	public void testAttackStatusBoostAttackCard()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new BoostAttackCard());
+		Player player = new Player(10, deck);
+		assertFalse("Player: Initial attacking status must be false!", 
+				player.getAttackingStatus());
+		
+		player.drawCard();
+		player.playCard(2);
+		assertFalse("Player: Attacking status must be false, when Boost Attack Card is played!", 
+				player.getAttackingStatus());
+	}
+	
+	@Test
+	public void testAttackStatusProtectCard()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new ProtectCard());
+		Player player = new Player(10, deck);
+		assertFalse("Player: Initial attacking status must be false!", 
+				player.getAttackingStatus());
+		
+		player.drawCard();
+		player.playCard(1);
+		assertFalse("Player: Attacking status must be false, when ProtectCard is played!", 
+				player.getAttackingStatus());
+	}
+	
+	@Test
+	public void testDamageAttackCard()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new AttackCard(7));
+		Player player = new Player(10, deck);
+		assertEquals("Player: Initial damage must be 0!", 
+				0, player.getDamage());
+		
+		player.drawCard();
+		player.playCard(7);
+		assertEquals("Player: Damage after must be 7 after playing AttackCard(7)!", 
+				7, player.getDamage());
+		
+		player.resetDamage();
+		assertEquals("Player: Damage after reset must be 0!", 
+				0, player.getDamage());
+	}
+	
+	@Test
+	public void testDamageBoostAttackCard()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new BoostAttackCard());
+		Player player = new Player(10, deck);
+		assertEquals("Player: Initial damage must be 0!", 
+				0, player.getDamage());
+		
+		player.drawCard();
+		player.playCard(2);
+		assertEquals("Player: Damage after must be 3 after playing Boost Attack Card!", 
+				3, player.getDamage());
+		
+		player.resetDamage();
+		assertEquals("Player: Damage after reset must be 0!", 
+				0, player.getDamage());
+	}
+	
+	@Test
+	public void testDamageProtectCard()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new ProtectCard());
+		Player player = new Player(10, deck);
+		assertEquals("Player: Initial damage must be 0!", 
+				0, player.getDamage());
+		
+		player.drawCard();
+		player.playCard(1);
+		assertEquals("Player: Damage after must be 0 after playing Protect Card!", 
+				0, player.getDamage());
+		
+		player.resetDamage();
+		assertEquals("Player: Damage after reset must be 0!", 
+				0, player.getDamage());
+	}
+	
+	@Test
+	public void testDamage1()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new BoostAttackCard());
+		deck.add(new BoostAttackCard());
+		deck.add(new BoostAttackCard());
+		Player player = new Player(10, deck);
+		assertEquals("Player: Initial damage must be 0!", 
+				0, player.getDamage());
+		
+		player.drawCard();
+		player.playCard(2);
+		assertEquals("Player: Damage after must be 3 after playing Boost Attack Card!", 
+				3, player.getDamage());
+		
+		player.drawCard();
+		player.playCard(2);
+		assertEquals("Player: Damage after must be 6 after playing Boost Attack Card!", 
+				6, player.getDamage());
+		
+		player.drawCard();
+		player.playCard(2);
+		assertEquals("Player: Damage after must be 9 after playing Boost Attack Card!", 
+				9, player.getDamage());
+		
+	}
+	
+	@Test
+	public void testDamage2()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new AttackCard(7));
+		deck.add(new BoostAttackCard());
+		deck.add(new BoostAttackCard());
+		Player player = new Player(10, deck);
+		assertEquals("Player: Initial damage must be 0!", 
+				0, player.getDamage());
+		
+		player.drawCard();
+		player.drawCard();
+		player.drawCard();
+		
+		player.playCard(2);
+		assertEquals("Player: Damage after must be 3 after playing Boost Attack Card!", 
+				3, player.getDamage());
+		
+		player.playCard(2);
+		assertEquals("Player: Damage after must be 6 after playing Boost Attack Card!", 
+				6, player.getDamage());
+		
+		player.playCard(7);
+		assertEquals("Player: Damage after must be 13 after playing AttackCard(7)!", 
+				13, player.getDamage());
+	}
+	
+	@Test
+	public void testDrawingCardsFullDeck()
+	{
+		Player player = new Player(20, Utility.generateCards());
+		
+		assertEquals("Player: Must have 25 cards in initial deck!", 
+				25, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 0 cards in initial hand!", 
+				0, player.getNumberOfCardsInHand());
+		
+		player.drawInitialCards();
+		
+		assertEquals("Player: Must have 19 cards left in deck!", 
+				19, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 6 cards in hand!", 
+				6, player.getNumberOfCardsInHand());
+		
+		player.drawCard();
+		
+		assertEquals("Player: Must have 18 cards left in deck!", 
+				18, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 7 cards in hand!", 
+				7, player.getNumberOfCardsInHand());
+	}
+	
+	@Test
+	public void testDrawingCardsEmptyDeck()
+	{
+		Player player = new Player(20, Utility.generateCards());
+		
+		assertEquals("Player: Must have 25 cards in initial deck!", 
+				25, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 0 cards in initial hand!", 
+				0, player.getNumberOfCardsInHand());
+		
+		for(int i = 0; i < 4; i++)
+		{
+			player.drawInitialCards();
+		}
+		
+		assertEquals("Player: Must have 1 cards left in deck!", 
+				1, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 24 cards in hand!", 
+				24, player.getNumberOfCardsInHand());
+		
+		player.drawCard();
+		
+		assertEquals("Player: Must have 0 cards left in deck!", 
+				0, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 25 cards in hand!", 
+				25, player.getNumberOfCardsInHand());
+		
+		player.drawCard();
+		
+		assertEquals("Player: Must have 0 cards left in deck!", 
+				0, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 25 cards in hand!", 
+				25, player.getNumberOfCardsInHand());
+	}
+	
+	@Test
+	public void testPlayingCardsNoCard()
+	{
+		Player player = new Player(20, Utility.generateCards());
+		
+		try {
+			player.playCard(0);
+			assertTrue(true);
+		} catch (NullPointerException e) {
+			assertTrue("Player: A NullPointerException is thrown", false);
+		}
+	}
+	
+	@Test
+	public void testPlayingCardsPlayCard()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		for(int i = 0; i < 6; i++)
+		{
+			deck.add(new BoostAttackCard());
+		}
+		Player player = new Player(20, deck);
+		
+		assertEquals("Player: Must have 6 cards in deck!", 
+				6, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 0 cards in hand!", 
+				0, player.getNumberOfCardsInHand());
+		
+		player.drawInitialCards();
+		
+		assertEquals("Player: Must have 0 cards in deck!", 
+				0, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 6 cards in hand!", 
+				6, player.getNumberOfCardsInHand());
+		
+		player.playCard(2);
+		
+		assertEquals("Player: Must have 0 cards in deck!", 
+				0, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 5 cards in hand!", 
+				5, player.getNumberOfCardsInHand());
+		
+		player.playCard(2);
+		player.playCard(2);
+		player.playCard(2);
+		
+		assertEquals("Player: Must have 0 cards in deck!", 
+				0, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 2 cards in hand!", 
+				2, player.getNumberOfCardsInHand());
 	}
     
 }
