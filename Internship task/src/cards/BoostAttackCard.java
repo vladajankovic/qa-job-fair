@@ -19,7 +19,8 @@ public class BoostAttackCard implements Card{
 
     @Override
     public void effect() {
-        System.out.println("Boost Attack card effect activated! Player have increased attack damage in this turn by " + boost + "!\r\n");
+        System.out.println("Boost Attack card effect activated!\n"
+        		+ "Player have increased attack damage in this turn by " + boost + "!\r\n");
     }
 
     @Override
