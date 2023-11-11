@@ -508,7 +508,94 @@ public class TestPlayer {
 		player.playCard(1);
 		
 		assertEquals("Player: Protect Counter must be 4!", 4, player.getProtectCounter());
-		
 	}
-    
+	
+	@Test
+	public void testProtectionWithProtectCardInHand()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		for(int i = 0; i < 5; i++)
+		{
+			deck.add(new AttackCard(7));
+		}
+		deck.add(new ProtectCard());
+		Player player = new Player(10, deck);
+		
+		player.drawInitialCards();
+		
+		assertTrue("Player: There must be one Protect Card in hand!", 
+				player.checkForProtectionWithProtectCard());
+	}
+	
+	@Test
+	public void testProtectionWithProtectCardNotInHand()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		for(int i = 0; i < 6; i++)
+		{
+			deck.add(new AttackCard(7));
+		}
+		Player player = new Player(10, deck);
+		
+		player.drawInitialCards();
+		
+		assertFalse("Player: There must not be any Protect Card in hand!", 
+				player.checkForProtectionWithProtectCard());
+	}
+	
+	@Test
+	public void testProtectionWithAttackCardEualDamage()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		for(int i = 0; i < 6; i++)
+		{
+			deck.add(new AttackCard(3 + i));
+		}
+		Player player = new Player(10, deck);
+		
+		player.drawInitialCards();
+		
+		assertTrue("Player: There must be one Attack Card in hand that can BLOCK this attack!", 
+				player.checkForProtectionWithAttackCard(7));
+	}
+	
+	@Test
+	public void testProtectionWithAttackCardNotEqualDamage()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		for(int i = 0; i < 6; i++)
+		{
+			deck.add(new AttackCard(3 + i));
+		}
+		Player player = new Player(10, deck);
+		
+		player.drawInitialCards();
+		
+		assertFalse("Player: There must not be any Attack Card in hand that can Block this attack!", 
+				player.checkForProtectionWithAttackCard(10));
+	}
+	
+    @Test
+    public void testFindNumberInHand()
+    {
+    	List<Card> deck = new ArrayList<Card>();
+		for(int i = 0; i < 6; i++)
+		{
+			deck.add(new AttackCard(i));
+		}
+		
+		Player player = new Player(10, deck);
+		
+		player.drawInitialCards();
+		
+		for(int i = 0; i < 6; i++)
+		{
+			assertTrue("Player: Error, expected true!", player.findNumberInHand(i));
+		}
+		
+		assertFalse("Player: Error, expected false!", player.findNumberInHand(-1));
+		assertFalse("Player: Error, expected false!", player.findNumberInHand(6));
+    }
+	
+	
 }
