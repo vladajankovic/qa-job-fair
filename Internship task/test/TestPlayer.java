@@ -64,7 +64,7 @@ public class TestPlayer {
 		assertNotNull("Player: Constructor is null!", testPlayer);
 		assertNotNull("Player: Attribute deck is null!", 
 				testPlayer.getDeck());
-		assertEquals("Player: Initial deck size is not 25!", 
+		assertEquals("Player: Initial deck size must be 25!", 
 				25, testPlayer.getDeck().size());
 	}
 	
@@ -81,7 +81,7 @@ public class TestPlayer {
 	{
 		Player testPlayer = new Player(0, Utility.generateCards());
 		assertNotNull("Player: Constructor is null!", testPlayer);
-		assertEquals("Player: Starting hand size is not 0!", 0, testPlayer.getHand().size());
+		assertEquals("Player: Starting hand size must be 0!", 0, testPlayer.getHand().size());
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class TestPlayer {
 	{
 		Player testPlayer = new Player(0, Utility.generateCards());
 		assertNotNull("Player: Constructor is null!", testPlayer);
-		assertNull("Player: Initial value of attribute lastPlayedCard is not null!", 
+		assertNull("Player: Initial value of attribute lastPlayedCard must be null!", 
 				testPlayer.getLastPlayedCard());
 	}
 	
@@ -98,7 +98,7 @@ public class TestPlayer {
 	{
 		Player testPlayer = new Player(0, Utility.generateCards());
 		assertNotNull("Player: Constructor is null!", testPlayer);
-		assertFalse("Player: Initial value of attribute attackingStatus is not false!", 
+		assertFalse("Player: Initial value of attribute attackingStatus must be false!", 
 				testPlayer.getAttackingStatus());
 	}
 	
@@ -106,8 +106,16 @@ public class TestPlayer {
 	public void testPlayerInitDamage() {
 		Player testPlayer = new Player(0, Utility.generateCards());
 		assertNotNull("Player: Constructor is null!", testPlayer);
-		assertEquals("Player: Initial value of attribute damage is not 0!", 
+		assertEquals("Player: Initial value of attribute damage must be 0!", 
 				0, testPlayer.getDamage());
+	}
+	
+	@Test
+	public void testPlayerInitProtectCounter() {
+		Player testPlayer = new Player(0, Utility.generateCards());
+		assertNotNull("Player: Constructor is null!", testPlayer);
+		assertEquals("Player: Initial value of attribute protectCounter must be 0!", 
+				0, testPlayer.getProtectCounter());
 	}
 	
 	@Test
@@ -396,7 +404,7 @@ public class TestPlayer {
 			player.playCard(0);
 			assertTrue(true);
 		} catch (NullPointerException e) {
-			assertTrue("Player: A NullPointerException is thrown", false);
+			assertTrue("Player: A NullPointerException is thrown!", false);
 		}
 	}
 	
@@ -437,6 +445,70 @@ public class TestPlayer {
 				0, player.getNumberOfCardsInDeck());
 		assertEquals("Player: Must have 2 cards in hand!", 
 				2, player.getNumberOfCardsInHand());
+	}
+	
+	@Test
+	public void testPlayProtectCard()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		deck.add(new ProtectCard());
+		Player player = new Player(20, deck);
+		
+		assertEquals("Player: Must have 1 cards in deck!", 
+				1, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 0 cards in hand!", 
+				0, player.getNumberOfCardsInHand());
+		
+		player.drawCard();
+		
+		assertEquals("Player: Must have 0 cards in deck!", 
+				0, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 1 cards in hand!", 
+				1, player.getNumberOfCardsInHand());
+		
+		assertEquals("Player: Protect Counter must be 0!", 0, player.getProtectCounter());
+		
+		player.playCard(1);
+		
+		assertEquals("Player: Must have 0 cards in deck!", 
+				0, player.getNumberOfCardsInDeck());
+		assertEquals("Player: Must have 0 cards in hand!", 
+				0, player.getNumberOfCardsInHand());
+		
+		assertEquals("Player: Protect Counter must be 1!", 1, player.getProtectCounter());
+	}
+	
+	@Test
+	public void testProtectCardPlayAndEffect()
+	{
+		List<Card> deck = new ArrayList<Card>();
+		for(int i = 0; i < 6; i++)
+		{
+			deck.add(new ProtectCard());
+		}
+		Player player = new Player(10, deck);
+		
+		player.drawInitialCards();
+		
+		assertEquals("Player: Protect Counter must be 0!", 0, player.getProtectCounter());
+		
+		player.playCard(1);
+		player.playCard(1);
+		player.playCard(1);
+		
+		assertEquals("Player: Protect Counter must be 3!", 3, player.getProtectCounter());
+		
+		player.useProtectCounter();
+		player.useProtectCounter();
+		
+		assertEquals("Player: Protect Counter must be 1!", 1, player.getProtectCounter());
+		
+		player.playCard(1);
+		player.playCard(1);
+		player.playCard(1);
+		
+		assertEquals("Player: Protect Counter must be 4!", 4, player.getProtectCounter());
+		
 	}
     
 }
