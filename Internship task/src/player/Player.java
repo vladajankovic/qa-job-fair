@@ -17,40 +17,42 @@ public class Player {
 	private static int initialHealthValue = 20;
 	private boolean attackingStatus;
 	private int damage;
+	private int protectCounter;
 
 	public Player(int health, List<Card> deck) {
-		if(health > 0)
-		{
+		if (health > 0) {
 			this.health = health;
-		}
-		else 
-		{
+		} else {
 			this.health = initialHealthValue;
 		}
-		if (deck == null)
-		{
+		if (deck == null) {
 			this.deck = Utility.generateCards();
-		}
-		else 
-		{
+		} else {
 			this.deck = deck;
 		}
 		this.hand = new ArrayList<>();
 		lastPlayedCard = null;
 		attackingStatus = false;
 		damage = 0;
+		protectCounter = 0;
 		shuffleDeck();
 	}
 
+	public int getProtectCounter() {
+		return protectCounter;
+	}
+
+	public void useProtectCounter() {
+		if (protectCounter > 0) {
+			protectCounter -= 1;
+		}
+	}
+
 	public void takeDamage(int amountOfDamage) {
-		if (amountOfDamage > 0)
-		{
-			if(health > amountOfDamage)
-			{
+		if (amountOfDamage > 0) {
+			if (health > amountOfDamage) {
 				health -= amountOfDamage;
-			}
-			else 
-			{
+			} else {
 				health = 0;
 			}
 		}
@@ -91,13 +93,11 @@ public class Player {
 	public int getInitialNumberOfCards() {
 		return initialNumberOfCards;
 	}
-	
-	private void singleDeckShuffle()
-	{
+
+	private void singleDeckShuffle() {
 		int deckSize = deck.size();
 		Random rand = new Random();
-		for(int i = deckSize; i > 0; i--)
-		{
+		for (int i = deckSize; i > 0; i--) {
 			int randomIndex = rand.nextInt(Integer.MAX_VALUE) % i;
 			Card temp = deck.get(i - 1);
 			deck.set(i - 1, deck.get(randomIndex));
@@ -105,10 +105,8 @@ public class Player {
 		}
 	}
 
-	public void shuffleDeck() 
-	{
-		for(int i = 0; i < 3; i++)
-		{
+	public void shuffleDeck() {
+		for (int i = 0; i < 3; i++) {
 			singleDeckShuffle();
 		}
 	}
@@ -126,8 +124,7 @@ public class Player {
 	}
 
 	public void drawCard() {
-		if(!deck.isEmpty())
-		{
+		if (!deck.isEmpty()) {
 			Card drawnCard = deck.remove(deck.size() - 1);
 			hand.add(drawnCard);
 		}
@@ -147,14 +144,13 @@ public class Player {
 				break;
 			}
 		}
-		
-		if (cardToPlay == null)
-		{
-			System.out.println("No card in hand with the index '"+cardNumber+"'.\n"
-					+ "Choose another card!\n");
+
+		if (cardToPlay == null) {
+			System.out.println("No card in hand with the index '" + cardNumber + "'.\n"
+					+ "Please enter a valid card number or 'end'.\n");
 			return;
 		}
-		
+
 		hand.remove(cardToPlay);
 		cardToPlay.effect();
 
@@ -163,14 +159,40 @@ public class Player {
 		if (cardToPlay instanceof AttackCard) {
 			attackingStatus = true;
 			damage += cardToPlay.getNumber();
+			System.out.println("Attacking opponent with " + damage + " damage!");
 		}
 		if (cardToPlay instanceof BoostAttackCard) {
 			damage += ((BoostAttackCard) cardToPlay).getBoost();
 		}
+		if (cardToPlay instanceof ProtectCard) {
+			protectCounter += 1;
+			System.out.println("Player receives one Protect Counter!\r\n"
+					+ "Protect Counters: " + getProtectCounter() + "\r\n");
+		}
 
 	}
 
-	public void playCardInDefense(int cardNumber) {
+	public void playProtectCardInDefence() {
+		Card cardToPlay = null;
+		for (Card card : hand) {
+			if (card instanceof ProtectCard) {
+				cardToPlay = card;
+				break;
+			}
+		}
+		
+		if (cardToPlay != null) {
+			lastPlayedCard = cardToPlay;
+			hand.remove(cardToPlay);
+			cardToPlay.effect();
+			System.out.println("You have avoided the opponents attack!");
+		}
+		else {
+			System.out.println("You don't have this card in your hand...\r\n");
+		}
+	}
+
+	public void playAttackCardInDefense(int cardNumber) {
 		Card cardToPlay = null;
 		for (Card card : hand) {
 			if (card.getNumber() == cardNumber) {
@@ -181,8 +203,8 @@ public class Player {
 
 		if (cardToPlay != null) {
 			lastPlayedCard = cardToPlay;
-			attackingStatus = true;
-
+			hand.remove(cardToPlay);
+			cardToPlay.effect();
 			System.out.println(String.format(
 					"You've defended yourself! You've been attacked for %d damage and you've used special ability of Attacking card %d to deflect the attack\r\n",
 					cardNumber, cardNumber));
@@ -191,9 +213,18 @@ public class Player {
 		}
 	}
 
-	public boolean checkForProtectionPossibilitiesInHand(Card lastPlayedCard) {
+	public boolean checkForProtectionWithAttackCard(int damage) {
 		for (Card card : hand) {
-			if (card instanceof ProtectCard || card.getNumber() == lastPlayedCard.getNumber()) {
+			if (card instanceof AttackCard && card.getNumber() == damage) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean checkForProtectionWithProtectCard() {
+		for (Card card : hand) {
+			if (card instanceof ProtectCard) {
 				return true;
 			}
 		}
@@ -203,11 +234,11 @@ public class Player {
 	public boolean findNumberInHand(int number) {
 		for (Card card : hand) {
 			if (card.getNumber() == number) {
-				return false;
+				return true;
 			}
 		}
 		System.out.println(String.format("There is no card in hand with number %d\r\n", number));
-		return true;
+		return false;
 	}
 
 	public void printHand() {
