@@ -15,7 +15,7 @@ public class ProtectCard implements Card {
 
     @Override
     public void effect() {
-        System.out.println("Protect card effect activated! Player deflects opponent's attack!\r\n");
+        System.out.println("Protect card effect activated!\r\n");
     }
 
     @Override
