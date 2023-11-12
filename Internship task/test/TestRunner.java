@@ -8,18 +8,15 @@ public class TestRunner {
 
 	public static void main(String[] args) {
 		Result results = JUnitCore.runClasses(
-				TestCardClasses.class,
-				TestUtility.class,
-				TestPlayer.class
-				);
-		
-		for(Failure fail: results.getFailures())
-		{
+				TestCardClasses.class, 
+				TestUtility.class, 
+				TestPlayer.class);
+
+		for (Failure fail : results.getFailures()) {
 			System.out.println(fail.toString());
 		}
-		
-		if (results.wasSuccessful())
-		{
+
+		if (results.wasSuccessful()) {
 			System.out.println("All tests passed!");
 		}
 	}
