@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import cards.AttackCard;
 import player.*;
 
 public class Game {
@@ -41,7 +40,7 @@ public class Game {
 	}
 
 	private void printPlayerStats(Player player) {
-		System.out.println("--------------------------------------");
+		System.out.println("---------------------------");
 		System.out.println("Health: " + player.getHealth());
 		System.out.println("Protect Counters: " + player.getProtectCounter());
 		System.out.println("Damage output: " + player.getDamage());
@@ -57,6 +56,8 @@ public class Game {
 		// Game loop
 		while (!getGameEnded()) {
 			// Player 1's turn
+			System.out.println("#################################");
+			System.out.println("#################################");
 			System.out.println("Player 1's Turn");
 			if (isPlayerWithoutOptionsToPlay(player1)) {
 				System.out.println("You lost all your cards... \r\n Player 2 wins!");
@@ -73,6 +74,8 @@ public class Game {
 			}
 
 			// Player 2's turn
+			System.out.println("#################################");
+			System.out.println("#################################");
 			System.out.println("Player 2's Turn");
 			if (isPlayerWithoutOptionsToPlay(player2)) {
 				System.out.println("You lost all your cards... \r\n Player 1 wins!");
@@ -123,7 +126,7 @@ public class Game {
 					System.out.println("No cards left in hand. Turn end.\n");
 					break;
 				}
-				if (currentPlayer.getLastPlayedCard() instanceof AttackCard) {
+				if (currentPlayer.getAttackingStatus()) {
 					System.out.println("Attack card played. Turn end.\n");
 					break;
 				}
@@ -152,7 +155,7 @@ public class Game {
 	public void tryToDefend(Player currentPlayer, Player opponentPlayer) {
 
 		// player has a way to deflect the attack
-		System.out.println("Avoid the attack or take the damage... \r\n" + "Select one option below:");
+		System.out.println("Avoid the attack or take the damage... \r\n" + "Select one option below:\n");
 
 		List<String> options = new ArrayList<String>();
 		int i = 0;

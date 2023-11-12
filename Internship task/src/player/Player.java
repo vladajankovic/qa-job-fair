@@ -246,11 +246,11 @@ public class Player {
 	}
 
 	public void printHand() {
-		System.out.println("Player's Hand:");
+		System.out.println("-----| Player's Hand |-----\r\n");
 		for (Card card : hand) {
-			System.out.println(card.getNumber() + "(" + card.description() + ")\r");
+			System.out.println("      " + card.getNumber() + "(" + card.description() + ")\r");
 			// You can add additional details about the card if needed
 		}
-		System.out.println();
+		System.out.print("---------------------------\r\n");
 	}
 }
