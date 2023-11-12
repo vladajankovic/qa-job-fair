@@ -10,11 +10,18 @@ public class TestRunner {
 		Result results = JUnitCore.runClasses(
 				TestCardClasses.class, 
 				TestUtility.class, 
-				TestPlayer.class);
+				TestPlayer.class,
+				TestGame.class);
 
 		for (Failure fail : results.getFailures()) {
-			System.out.println(fail.toString());
+			System.err.println(fail.toString());
 		}
+		
+		System.out.println("\r\nTests PASSED: " + 
+				(results.getRunCount() - results.getFailureCount()) + 
+				"/" + results.getRunCount());
+		System.out.println("Tests FAILED: " + results.getFailureCount() +
+				"/" + results.getRunCount() + "\r\n");
 
 		if (results.wasSuccessful()) {
 			System.out.println("All tests passed!");
