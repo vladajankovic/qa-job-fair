@@ -141,7 +141,8 @@ public class Game {
 		if (currentPlayer.getProtectCounter() > 0 || currentPlayer.checkForProtectionWithProtectCard()
 				|| currentPlayer.checkForProtectionWithAttackCard(opponentPlayer.getDamage())) {
 			tryToDefend(currentPlayer, opponentPlayer);
-		} else {
+		}
+		else {
 			// player must take damage from attack
 			currentPlayer.takeDamage(opponentPlayer.getDamage());
 			System.out.println("Ohhh you've taken damage... Health: " + currentPlayer.getHealth() + "\r\n");
@@ -152,7 +153,7 @@ public class Game {
 
 		// player has a way to deflect the attack
 		System.out.println("Avoid the attack or take the damage... \r\n" + "Select one option below:");
-		
+
 		List<String> options = new ArrayList<String>();
 		int i = 0;
 		System.out.println("" + (i++) + ": Take damage\r\n");
@@ -177,30 +178,29 @@ public class Game {
 			currentPlayer.takeDamage(opponentPlayer.getDamage());
 			System.out.println("Ohhh you've taken damage... Health: " + currentPlayer.getHealth() + "\r\n");
 		}
-		if (decision.equalsIgnoreCase("counter")){
+		if (decision.equalsIgnoreCase("counter")) {
 			// player doesn't take damage this turn - uses protect counter
-            currentPlayer.useProtectCounter();
-            System.out.println("Protection Counter used to BLOCK incoming attack!\r\n");
-        }
-        if (decision.equalsIgnoreCase("protect")) {
-        	// player doesn't take damage this turn - uses protect card
-            currentPlayer.playProtectCardInDefence();
-        }
-        if (decision.equalsIgnoreCase("attack")) {
-        	// player doesn't take damage this turn - uses special ability of attacking card
-        	currentPlayer.playAttackCardInDefense(opponentPlayer.getDamage());
-        }
-		
+			currentPlayer.useProtectCounter();
+			System.out.println("Protection Counter used to BLOCK incoming attack!\r\n");
+		}
+		if (decision.equalsIgnoreCase("protect")) {
+			// player doesn't take damage this turn - uses protect card
+			currentPlayer.playProtectCardInDefence();
+		}
+		if (decision.equalsIgnoreCase("attack")) {
+			// player doesn't take damage this turn - uses special ability of attacking card
+			currentPlayer.playAttackCardInDefense(opponentPlayer.getDamage());
+		}
+
 	}
 
 	public String getOption(int n, List<String> options) {
 		String input;
 		boolean stop = false;
-		
+
 		do {
 			input = scanner.nextLine();
-			for(int i = 0; i < n; i++)
-			{
+			for (int i = 0; i < n; i++) {
 				if (input.equalsIgnoreCase(Integer.valueOf(i).toString())) {
 					input = options.get(i);
 					stop = true;
