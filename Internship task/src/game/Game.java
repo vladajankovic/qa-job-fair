@@ -224,24 +224,20 @@ public class Game {
 
 		return input;
 	}
-	
-	public boolean testIsPlayerOneNull()
-	{
+
+	public boolean testIsPlayerOneNull() {
 		return player1 == null;
 	}
-	
-	public boolean testIsPlayerTwoNull()
-	{
+
+	public boolean testIsPlayerTwoNull() {
 		return player1 == null;
 	}
-	
-	public boolean testArePlayersDifferent()
-	{
+
+	public boolean testArePlayersDifferent() {
 		return player1 == player2;
 	}
-	
-	public String simulateGameEndingPlayerOneNoHealth()
-	{
+
+	public String simulateGameEndingPlayerOneNoHealth() {
 		String result = "";
 		player1.drawInitialCards();
 		player2.drawInitialCards();
@@ -254,13 +250,13 @@ public class Game {
 				gameEnded = true;
 				break;
 			}
-			
+
 			// Last turn, Player 2 has played Boost Attack Cards and Attack Card to reduce
 			// Player 1's health to 0
 			// Player 1 is attacked by Player 2 with damage greater than Player 1's health
 			// Player 1 has no way to stop this attack, and takes the damage
 			player1.takeDamage(player1.getHealth());
-			
+
 			// playTurn(player1, player2);
 
 			if (!hasHealth(player1)) {
@@ -287,9 +283,8 @@ public class Game {
 		}
 		return result;
 	}
-	
-	public String simulateGameEndingPlayerTwoNoHealth()
-	{
+
+	public String simulateGameEndingPlayerTwoNoHealth() {
 		String result = "";
 		player1.drawInitialCards();
 		player2.drawInitialCards();
@@ -302,7 +297,7 @@ public class Game {
 				gameEnded = true;
 				break;
 			}
-			
+
 			// Player 1 plays Boost Attack Cards and Attack Card to reduce
 			// Player 2's health to 0
 			// playTurn(player1, player2);
@@ -323,7 +318,7 @@ public class Game {
 			// Player 2 is attacked by Player 1 with damage greater than Player 2's health
 			// Player 2 has no way to stop this attack, and takes the damage
 			player2.takeDamage(player2.getHealth());
-			
+
 			// playTurn(player2, player1);
 
 			if (!hasHealth(player2)) {
@@ -334,9 +329,8 @@ public class Game {
 		}
 		return result;
 	}
-	
-	public String simulateGameEndingPlayerOneNoCards()
-	{
+
+	public String simulateGameEndingPlayerOneNoCards() {
 		String result = "";
 		player1.drawInitialCards();
 		player2.drawInitialCards();
@@ -349,11 +343,11 @@ public class Game {
 				gameEnded = true;
 				break;
 			}
-			
+
 			// Player 1 has no cards left in his deck
 			// Player 1 has played his last card from his hand
 			// Player 1 is unable to defeat his opponent
-			// On his next turn Player 1 losses the game because 
+			// On his next turn Player 1 losses the game because
 			// he has no cards left to play
 			player1.getDeck().clear();
 			player1.getHand().clear();
@@ -383,9 +377,8 @@ public class Game {
 		}
 		return result;
 	}
-	
-	public String simulateGameEndingPlayerTwoNoCards()
-	{
+
+	public String simulateGameEndingPlayerTwoNoCards() {
 		String result = "";
 		player1.drawInitialCards();
 		player2.drawInitialCards();
@@ -398,7 +391,7 @@ public class Game {
 				gameEnded = true;
 				break;
 			}
-			
+
 			// Player 1 plays his turn
 			// playTurn(player1, player2);
 
@@ -418,7 +411,7 @@ public class Game {
 			// Player 2 has no cards left in his deck
 			// Player 2 has played his last card from his hand
 			// Player 2 is unable to defeat his opponent
-			// On his next turn Player 2 losses the game because 
+			// On his next turn Player 2 losses the game because
 			// he has no cards left to play
 			player2.getDeck().clear();
 			player2.getHand().clear();
