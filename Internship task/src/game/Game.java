@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import player.*;
+import utility.Utility;
 
 public class Game {
 	private Player player1;
@@ -13,7 +14,13 @@ public class Game {
 	private boolean gameEnded;
 
 	public Game(Player player1, Player player2) {
+		if (player1 == null) {
+			player1 = new Player(20, Utility.generateCards());
+		}
 		this.player1 = player1;
+		if (player2 == null || player1 == player2) {
+			player2 = new Player(20, Utility.generateCards());
+		}
 		this.player2 = player2;
 		this.scanner = new Scanner(System.in);
 		gameEnded = false;
@@ -136,7 +143,7 @@ public class Game {
 		}
 	}
 
-	public void currentPlayerUnderAttack(Player currentPlayer, Player opponentPlayer) {
+	private void currentPlayerUnderAttack(Player currentPlayer, Player opponentPlayer) {
 
 		System.out.println("WOW your opponent's attacking your health points with " + opponentPlayer.getDamage()
 				+ " damage!!! \r\n");
@@ -152,7 +159,7 @@ public class Game {
 		}
 	}
 
-	public void tryToDefend(Player currentPlayer, Player opponentPlayer) {
+	private void tryToDefend(Player currentPlayer, Player opponentPlayer) {
 
 		// player has a way to deflect the attack
 		System.out.println("Avoid the attack or take the damage... \r\n" + "Select one option below:\n");
@@ -197,7 +204,7 @@ public class Game {
 
 	}
 
-	public String getOption(int n, List<String> options) {
+	private String getOption(int n, List<String> options) {
 		String input;
 		boolean stop = false;
 
@@ -216,6 +223,214 @@ public class Game {
 		} while (!stop);
 
 		return input;
+	}
+	
+	public boolean testIsPlayerOneNull()
+	{
+		return player1 == null;
+	}
+	
+	public boolean testIsPlayerTwoNull()
+	{
+		return player1 == null;
+	}
+	
+	public boolean testArePlayersDifferent()
+	{
+		return player1 == player2;
+	}
+	
+	public String simulateGameEndingPlayerOneNoHealth()
+	{
+		String result = "";
+		player1.drawInitialCards();
+		player2.drawInitialCards();
+
+		// Game loop
+		while (!getGameEnded()) {
+			// Player 1's turn
+			if (isPlayerWithoutOptionsToPlay(player1)) {
+				result = "Player 1 has no cards in hand and deck. Player 2 wins!";
+				gameEnded = true;
+				break;
+			}
+			
+			// Last turn, Player 2 has played Boost Attack Cards and Attack Card to reduce
+			// Player 1's health to 0
+			// Player 1 is attacked by Player 2 with damage greater than Player 1's health
+			// Player 1 has no way to stop this attack, and takes the damage
+			player1.takeDamage(player1.getHealth());
+			
+			// playTurn(player1, player2);
+
+			if (!hasHealth(player1)) {
+				result = "Player 1 has 0 health. Player 2 wins!";
+				gameEnded = true;
+				break;
+			}
+
+			// Player 2's turn
+			if (isPlayerWithoutOptionsToPlay(player2)) {
+				result = "Player 2 has no cards in hand and deck. Player 1 wins!";
+				gameEnded = true;
+				break;
+			}
+
+			// Player 2 plays Boost Attack Cards and Attack Card
+			// playTurn(player2, player1);
+
+			if (!hasHealth(player2)) {
+				result = "Player 2 has 0 health. Player 1 wins!";
+				gameEnded = true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public String simulateGameEndingPlayerTwoNoHealth()
+	{
+		String result = "";
+		player1.drawInitialCards();
+		player2.drawInitialCards();
+
+		// Game loop
+		while (!getGameEnded()) {
+			// Player 1's turn
+			if (isPlayerWithoutOptionsToPlay(player1)) {
+				result = "Player 1 has no cards in hand and deck. Player 2 wins!";
+				gameEnded = true;
+				break;
+			}
+			
+			// Player 1 plays Boost Attack Cards and Attack Card to reduce
+			// Player 2's health to 0
+			// playTurn(player1, player2);
+
+			if (!hasHealth(player1)) {
+				result = "Player 1 has 0 health. Player 2 wins!";
+				gameEnded = true;
+				break;
+			}
+
+			// Player 2's turn
+			if (isPlayerWithoutOptionsToPlay(player2)) {
+				result = "Player 2 has no cards in hand and deck. Player 1 wins!";
+				gameEnded = true;
+				break;
+			}
+
+			// Player 2 is attacked by Player 1 with damage greater than Player 2's health
+			// Player 2 has no way to stop this attack, and takes the damage
+			player2.takeDamage(player2.getHealth());
+			
+			// playTurn(player2, player1);
+
+			if (!hasHealth(player2)) {
+				result = "Player 2 has 0 health. Player 1 wins!";
+				gameEnded = true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public String simulateGameEndingPlayerOneNoCards()
+	{
+		String result = "";
+		player1.drawInitialCards();
+		player2.drawInitialCards();
+
+		// Game loop
+		while (!getGameEnded()) {
+			// Player 1's turn
+			if (isPlayerWithoutOptionsToPlay(player1)) {
+				result = "Player 1 has no cards in hand and deck. Player 2 wins!";
+				gameEnded = true;
+				break;
+			}
+			
+			// Player 1 has no cards left in his deck
+			// Player 1 has played his last card from his hand
+			// Player 1 is unable to defeat his opponent
+			// On his next turn Player 1 losses the game because 
+			// he has no cards left to play
+			player1.getDeck().clear();
+			player1.getHand().clear();
+			// playTurn(player1, player2);
+
+			if (!hasHealth(player1)) {
+				result = "Player 1 has 0 health. Player 2 wins!";
+				gameEnded = true;
+				break;
+			}
+
+			// Player 2's turn
+			if (isPlayerWithoutOptionsToPlay(player2)) {
+				result = "Player 2 has no cards in hand and deck. Player 1 wins!";
+				gameEnded = true;
+				break;
+			}
+
+			// Player 2 plays his turn
+			// playTurn(player2, player1);
+
+			if (!hasHealth(player2)) {
+				result = "Player 2 has 0 health. Player 1 wins!";
+				gameEnded = true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public String simulateGameEndingPlayerTwoNoCards()
+	{
+		String result = "";
+		player1.drawInitialCards();
+		player2.drawInitialCards();
+
+		// Game loop
+		while (!getGameEnded()) {
+			// Player 1's turn
+			if (isPlayerWithoutOptionsToPlay(player1)) {
+				result = "Player 1 has no cards in hand and deck. Player 2 wins!";
+				gameEnded = true;
+				break;
+			}
+			
+			// Player 1 plays his turn
+			// playTurn(player1, player2);
+
+			if (!hasHealth(player1)) {
+				result = "Player 1 has 0 health. Player 2 wins!";
+				gameEnded = true;
+				break;
+			}
+
+			// Player 2's turn
+			if (isPlayerWithoutOptionsToPlay(player2)) {
+				result = "Player 2 has no cards in hand and deck. Player 1 wins!";
+				gameEnded = true;
+				break;
+			}
+
+			// Player 2 has no cards left in his deck
+			// Player 2 has played his last card from his hand
+			// Player 2 is unable to defeat his opponent
+			// On his next turn Player 2 losses the game because 
+			// he has no cards left to play
+			player2.getDeck().clear();
+			player2.getHand().clear();
+			// playTurn(player2, player1);
+
+			if (!hasHealth(player2)) {
+				result = "Player 2 has 0 health. Player 1 wins!";
+				gameEnded = true;
+				break;
+			}
+		}
+		return result;
 	}
 
 }
