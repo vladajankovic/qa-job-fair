@@ -109,7 +109,11 @@ public class Game {
 			printPlayerStats(currentPlayer);
 			currentPlayer.printHand();
 			currentPlayerUnderAttack(currentPlayer, opponentPlayer);
-			if (isHandEmpty(currentPlayer) || !hasHealth(currentPlayer)) {
+			if (isHandEmpty(currentPlayer)) {
+				System.out.println("No cards left in hand after defending. Turn end.\r\n");
+				return;
+			}
+			if (!hasHealth(currentPlayer)) {
 				return;
 			}
 		}
