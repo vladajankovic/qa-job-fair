@@ -2,25 +2,25 @@ package cards;
 
 public class ProtectCard implements Card {
 
-    private int number;
+	private int number;
 
-    public ProtectCard(){
-        this.number = 1;
-    }
+	public ProtectCard() {
+		this.number = 1;
+	}
 
-    @Override
-    public int getNumber() {
-      return number;
-    }
+	@Override
+	public int getNumber() {
+		return number;
+	}
 
-    @Override
-    public void effect() {
-        System.out.println("Protect card effect activated!\r\n");
-    }
+	@Override
+	public void effect() {
+		System.out.println("Protect card effect activated!\r\n");
+	}
 
-    @Override
-    public String description(){
-        return "Protect card";
-    }
-    
+	@Override
+	public String description() {
+		return "Protect card";
+	}
+
 }
