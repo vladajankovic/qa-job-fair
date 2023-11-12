@@ -22,12 +22,14 @@ public class Player {
 	public Player(int health, List<Card> deck) {
 		if (health > 0) {
 			this.health = health;
-		} else {
+		}
+		else {
 			this.health = initialHealthValue;
 		}
 		if (deck == null) {
 			this.deck = Utility.generateCards();
-		} else {
+		}
+		else {
 			this.deck = deck;
 		}
 		this.hand = new ArrayList<>();
@@ -52,7 +54,8 @@ public class Player {
 		if (amountOfDamage > 0) {
 			if (health > amountOfDamage) {
 				health -= amountOfDamage;
-			} else {
+			}
+			else {
 				health = 0;
 			}
 		}
@@ -166,8 +169,8 @@ public class Player {
 		}
 		if (cardToPlay instanceof ProtectCard) {
 			protectCounter += 1;
-			System.out.println("Player receives one Protect Counter!\r\n"
-					+ "Protect Counters: " + getProtectCounter() + "\r\n");
+			System.out.println(
+					"Player receives one Protect Counter!\r\n" + "Protect Counters: " + getProtectCounter() + "\r\n");
 		}
 
 	}
@@ -180,7 +183,7 @@ public class Player {
 				break;
 			}
 		}
-		
+
 		if (cardToPlay != null) {
 			lastPlayedCard = cardToPlay;
 			hand.remove(cardToPlay);
@@ -208,7 +211,8 @@ public class Player {
 			System.out.println(String.format(
 					"You've defended yourself! You've been attacked for %d damage and you've used special ability of Attacking card %d to deflect the attack\r\n",
 					cardNumber, cardNumber));
-		} else {
+		}
+		else {
 			System.out.println("You don't have this card in your hand...\r\n");
 		}
 	}
