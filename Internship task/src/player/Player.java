@@ -97,10 +97,10 @@ public class Player {
 		return initialNumberOfCards;
 	}
 
+	// This is the modern Fisher–Yates shuffle algorithm
 	private void singleDeckShuffle() {
-		int deckSize = deck.size();
 		Random rand = new Random();
-		for (int i = deckSize; i > 0; i--) {
+		for (int i = deck.size(); i > 0; i--) {
 			int randomIndex = rand.nextInt(Integer.MAX_VALUE) % i;
 			Card temp = deck.get(i - 1);
 			deck.set(i - 1, deck.get(randomIndex));
