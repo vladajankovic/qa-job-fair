@@ -8,7 +8,6 @@ import utility.Utility;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -21,8 +20,12 @@ public class TestGame {
 		assertNotNull("Game: Constructor is null!", testGame);
 
 		assertFalse("Game: If player is null, a new player must be created!", testGame.testIsPlayerOneNull());
-
+		assertEquals("Game: Default created player must have 20 health!", 20, testGame.testPlayerOneHealth());
+		assertEquals("Game: Default created player must have 25 cards in the deck!", 25, testGame.testPlayerOneDeckSize());
+		
 		assertFalse("Game: If player is null, a new player must be created!", testGame.testIsPlayerTwoNull());
+		assertEquals("Game: Default created player must have 20 health!", 20, testGame.testPlayerTwoHealth());
+		assertEquals("Game: Default created player must have 25 cards in the deck!", 25, testGame.testPlayerTwoDeckSize());
 	}
 
 	@Test
@@ -106,8 +109,5 @@ public class TestGame {
 		assertTrue("Game: Player 1 must be the winner!",
 				result.equals("Player 2 has no cards in hand and deck. Player 1 wins!"));
 	}
-
-	public static void main(String[] args) {
-
-	}
+	
 }
