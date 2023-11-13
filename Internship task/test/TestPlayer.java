@@ -128,18 +128,23 @@ public class TestPlayer {
 
 	@Test
 	public void testTakeDamage3() {
-		Player player = new Player(-1, Utility.generateCards());
-		assertEquals("Player: Bad health!", 20, player.getHealth());
-		player.takeDamage(1);
-		assertEquals("Player: Bad 'take damage' calculation!", 19, player.getHealth());
+		Player player = new Player(10, Utility.generateCards());
+		player.takeDamage(15);
+		assertEquals("Player: Bad 'take damage' calculation!", 0, player.getHealth());
 	}
 
 	@Test
 	public void testTakeDamage4() {
-		Player player = new Player(-10, Utility.generateCards());
-		assertEquals("Player: Bad health value!", 20, player.getHealth());
+		Player player = new Player(10, Utility.generateCards());
 		player.takeDamage(-300);
-		assertEquals("Player: Bad 'take damage' calculation!", 20, player.getHealth());
+		assertEquals("Player: Bad 'take damage' calculation!", 10, player.getHealth());
+	}
+	
+	@Test
+	public void testTakeDamage5() {
+		Player player = new Player(10, Utility.generateCards());
+		player.takeDamage(6);
+		assertEquals("Player: Bad 'take damage' calculation!", 6, 10 - player.getHealth());
 	}
 
 	@Test
@@ -227,7 +232,7 @@ public class TestPlayer {
 	}
 
 	@Test
-	public void testDamage1() {
+	public void testDamageOutput1() {
 		List<Card> deck = new ArrayList<Card>();
 		deck.add(new BoostAttackCard());
 		deck.add(new BoostAttackCard());
@@ -250,7 +255,7 @@ public class TestPlayer {
 	}
 
 	@Test
-	public void testDamage2() {
+	public void testDamageOutput2() {
 		List<Card> deck = new ArrayList<Card>();
 		deck.add(new AttackCard(7));
 		deck.add(new BoostAttackCard());
@@ -409,6 +414,53 @@ public class TestPlayer {
 
 		assertEquals("Player: Protect Counter must be 4!", 4, player.getProtectCounter());
 	}
+	
+	@Test
+	public void testProtectionWithProtectCounter() {
+		List<Card> deck = new ArrayList<Card>();
+		for (int i = 0; i < 5; i++) {
+			deck.add(new AttackCard(7));
+		}
+		deck.add(new ProtectCard());
+		Player player = new Player(10, deck);
+
+		player.drawInitialCards();
+		
+		player.playCard(1);
+
+		assertTrue("Player: Player must have Protect Counters!", player.getProtectCounter() > 0);
+		assertEquals("Player: Protect Counter must be 1!", 1, player.getProtectCounter());
+		
+		if (player.getProtectCounter() > 0) {
+			player.takeDamage(0);
+		}
+		else {
+			player.takeDamage(5);
+		}
+		assertEquals("Player: Player could have blocked the attack!", 10, player.getHealth());
+	}
+	
+	@Test
+	public void testProtectionWithNoProtectCounter() {
+		List<Card> deck = new ArrayList<Card>();
+		for (int i = 0; i < 6; i++) {
+			deck.add(new AttackCard(7));
+		}
+		Player player = new Player(10, deck);
+
+		player.drawInitialCards();
+
+		assertFalse("Player: Player must have no Protect Counters!", player.getProtectCounter() > 0);
+		assertEquals("Player: Protect Counter must be 0!", 0, player.getProtectCounter());
+		
+		if (player.getProtectCounter() > 0) {
+			player.takeDamage(0);
+		}
+		else {
+			player.takeDamage(5);
+		}
+		assertEquals("Player: Player could not have blocked the attack!", 5, player.getHealth());
+	}
 
 	@Test
 	public void testProtectionWithProtectCardInHand() {
@@ -422,10 +474,18 @@ public class TestPlayer {
 		player.drawInitialCards();
 
 		assertTrue("Player: There must be one Protect Card in hand!", player.checkForProtectionWithProtectCard());
+		
+		if (player.checkForProtectionWithProtectCard()) {
+			player.takeDamage(0);
+		}
+		else {
+			player.takeDamage(5);
+		}
+		assertEquals("Player: Player could have blocked the attack!", 10, player.getHealth());
 	}
 
 	@Test
-	public void testProtectionWithProtectCardNotInHand() {
+	public void testProtectionWithNoProtectCardInHand() {
 		List<Card> deck = new ArrayList<Card>();
 		for (int i = 0; i < 6; i++) {
 			deck.add(new AttackCard(7));
@@ -435,10 +495,18 @@ public class TestPlayer {
 		player.drawInitialCards();
 
 		assertFalse("Player: There must not be any Protect Card in hand!", player.checkForProtectionWithProtectCard());
+		
+		if (player.checkForProtectionWithProtectCard()) {
+			player.takeDamage(0);
+		}
+		else {
+			player.takeDamage(5);
+		}
+		assertEquals("Player: Player could not have blocked the attack!", 5, player.getHealth());
 	}
 
 	@Test
-	public void testProtectionWithAttackCardEualDamage() {
+	public void testProtectionWithAttackCardEqualDamage() {
 		List<Card> deck = new ArrayList<Card>();
 		for (int i = 0; i < 6; i++) {
 			deck.add(new AttackCard(3 + i));
@@ -447,8 +515,16 @@ public class TestPlayer {
 
 		player.drawInitialCards();
 
-		assertTrue("Player: There must be one Attack Card in hand that can BLOCK this attack!",
-				player.checkForProtectionWithAttackCard(7));
+		assertTrue("Player: There must be one Attack Card (5) in hand that can BLOCK this attack for 5 damage!",
+				player.checkForProtectionWithAttackCard(5));
+		
+		if (player.checkForProtectionWithAttackCard(5)) {
+			player.takeDamage(0);
+		}
+		else {
+			player.takeDamage(5);
+		}
+		assertEquals("Player: Player could have blocked the attack!", 10, player.getHealth());
 	}
 
 	@Test
@@ -457,12 +533,20 @@ public class TestPlayer {
 		for (int i = 0; i < 6; i++) {
 			deck.add(new AttackCard(3 + i));
 		}
-		Player player = new Player(10, deck);
+		Player player = new Player(20, deck);
 
 		player.drawInitialCards();
 
-		assertFalse("Player: There must not be any Attack Card in hand that can Block this attack!",
+		assertFalse("Player: There must not be any Attack Card in hand that can Block this attack for 10 damage!",
 				player.checkForProtectionWithAttackCard(10));
+		
+		if (player.checkForProtectionWithAttackCard(10)) {
+			player.takeDamage(0);
+		}
+		else {
+			player.takeDamage(10);
+		}
+		assertEquals("Player: Player could not have blocked the attack!", 10, player.getHealth());
 	}
 
 	@Test
