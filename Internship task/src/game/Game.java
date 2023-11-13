@@ -240,6 +240,22 @@ public class Game {
 	public boolean testArePlayersDifferent() {
 		return player1 == player2;
 	}
+	
+	public int testPlayerOneHealth() {
+		return player1.getHealth();
+	}
+	
+	public int testPlayerTwoHealth() {
+		return player2.getHealth();
+	}
+	
+	public int testPlayerOneDeckSize() {
+		return player1.getDeck().size();
+	}
+	
+	public int testPlayerTwoDeckSize() {
+		return player2.getDeck().size();
+	}
 
 	public String simulateGameEndingPlayerOneNoHealth() {
 		String result = "";
