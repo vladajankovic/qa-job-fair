@@ -21,11 +21,13 @@ public class TestGame {
 
 		assertFalse("Game: If player is null, a new player must be created!", testGame.testIsPlayerOneNull());
 		assertEquals("Game: Default created player must have 20 health!", 20, testGame.testPlayerOneHealth());
-		assertEquals("Game: Default created player must have 25 cards in the deck!", 25, testGame.testPlayerOneDeckSize());
-		
+		assertEquals("Game: Default created player must have 25 cards in the deck!", 25,
+				testGame.testPlayerOneDeckSize());
+
 		assertFalse("Game: If player is null, a new player must be created!", testGame.testIsPlayerTwoNull());
 		assertEquals("Game: Default created player must have 20 health!", 20, testGame.testPlayerTwoHealth());
-		assertEquals("Game: Default created player must have 25 cards in the deck!", 25, testGame.testPlayerTwoDeckSize());
+		assertEquals("Game: Default created player must have 25 cards in the deck!", 25,
+				testGame.testPlayerTwoDeckSize());
 	}
 
 	@Test
@@ -109,5 +111,5 @@ public class TestGame {
 		assertTrue("Game: Player 1 must be the winner!",
 				result.equals("Player 2 has no cards in hand and deck. Player 1 wins!"));
 	}
-	
+
 }

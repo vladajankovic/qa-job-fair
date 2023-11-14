@@ -139,7 +139,7 @@ public class TestPlayer {
 		player.takeDamage(-300);
 		assertEquals("Player: Bad 'take damage' calculation!", 10, player.getHealth());
 	}
-	
+
 	@Test
 	public void testTakeDamage5() {
 		Player player = new Player(10, Utility.generateCards());
@@ -414,7 +414,7 @@ public class TestPlayer {
 
 		assertEquals("Player: Protect Counter must be 4!", 4, player.getProtectCounter());
 	}
-	
+
 	@Test
 	public void testProtectionWithProtectCounter() {
 		List<Card> deck = new ArrayList<Card>();
@@ -425,12 +425,12 @@ public class TestPlayer {
 		Player player = new Player(10, deck);
 
 		player.drawInitialCards();
-		
+
 		player.playCard(1);
 
 		assertTrue("Player: Player must have Protect Counters!", player.getProtectCounter() > 0);
 		assertEquals("Player: Protect Counter must be 1!", 1, player.getProtectCounter());
-		
+
 		if (player.getProtectCounter() > 0) {
 			player.takeDamage(0);
 		}
@@ -439,7 +439,7 @@ public class TestPlayer {
 		}
 		assertEquals("Player: Player could have blocked the attack!", 10, player.getHealth());
 	}
-	
+
 	@Test
 	public void testProtectionWithNoProtectCounter() {
 		List<Card> deck = new ArrayList<Card>();
@@ -452,7 +452,7 @@ public class TestPlayer {
 
 		assertFalse("Player: Player must have no Protect Counters!", player.getProtectCounter() > 0);
 		assertEquals("Player: Protect Counter must be 0!", 0, player.getProtectCounter());
-		
+
 		if (player.getProtectCounter() > 0) {
 			player.takeDamage(0);
 		}
@@ -474,7 +474,7 @@ public class TestPlayer {
 		player.drawInitialCards();
 
 		assertTrue("Player: There must be one Protect Card in hand!", player.checkForProtectionWithProtectCard());
-		
+
 		if (player.checkForProtectionWithProtectCard()) {
 			player.takeDamage(0);
 		}
@@ -495,7 +495,7 @@ public class TestPlayer {
 		player.drawInitialCards();
 
 		assertFalse("Player: There must not be any Protect Card in hand!", player.checkForProtectionWithProtectCard());
-		
+
 		if (player.checkForProtectionWithProtectCard()) {
 			player.takeDamage(0);
 		}
@@ -517,7 +517,7 @@ public class TestPlayer {
 
 		assertTrue("Player: There must be one Attack Card (5) in hand that can BLOCK this attack for 5 damage!",
 				player.checkForProtectionWithAttackCard(5));
-		
+
 		if (player.checkForProtectionWithAttackCard(5)) {
 			player.takeDamage(0);
 		}
@@ -539,7 +539,7 @@ public class TestPlayer {
 
 		assertFalse("Player: There must not be any Attack Card in hand that can Block this attack for 10 damage!",
 				player.checkForProtectionWithAttackCard(10));
-		
+
 		if (player.checkForProtectionWithAttackCard(10)) {
 			player.takeDamage(0);
 		}

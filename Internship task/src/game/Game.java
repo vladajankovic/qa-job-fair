@@ -133,12 +133,12 @@ public class Game {
 				int cardNumber = Integer.parseInt(input);
 				currentPlayer.playCard(cardNumber);
 				// check if player can play anything else
-				if (isHandEmpty(currentPlayer)) {
-					System.out.println("No cards left in hand. Turn end.\n");
-					break;
-				}
 				if (currentPlayer.getAttackingStatus()) {
 					System.out.println("Attack card played. Turn end.\n");
+					break;
+				}
+				if (isHandEmpty(currentPlayer)) {
+					System.out.println("No cards left in hand. Turn end.\n");
 					break;
 				}
 			} catch (NumberFormatException e) {
@@ -240,19 +240,19 @@ public class Game {
 	public boolean testArePlayersDifferent() {
 		return player1 == player2;
 	}
-	
+
 	public int testPlayerOneHealth() {
 		return player1.getHealth();
 	}
-	
+
 	public int testPlayerTwoHealth() {
 		return player2.getHealth();
 	}
-	
+
 	public int testPlayerOneDeckSize() {
 		return player1.getDeck().size();
 	}
-	
+
 	public int testPlayerTwoDeckSize() {
 		return player2.getDeck().size();
 	}
